@@ -6,6 +6,8 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 cap = cv2.VideoCapture(0)
 
+windowName = 'Webcam Screen'
+
 while True:
     # Capture frame-by-frame
     ret, frame = cap.read()
@@ -36,8 +38,17 @@ def getCameraStreaming():
     return capture
 
 
+def setDefaultCameraSetting():
+    cv2.startWindowThread()
+    cv2.namedWindow(winname=windowName)
+    cv2.setWindowProperty(winname=windowName, prop_id=cv2.WINDOW_FULLSCREEN, prop_value=cv2.WINDOW_FULLSCREEN)
+
+
 def main():
+    print("Start main() function.")
+
     capture = getCameraStreaming()
+    setDefaultCameraSetting()
 
 
 if __name__ == '__main__':
