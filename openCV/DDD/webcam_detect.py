@@ -1,4 +1,5 @@
 import cv2
+import sys
 import time
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -24,6 +25,23 @@ while True:
     cv2.imshow('frame', frame)
     if cv2.waitKey(20) & 0xFF == ord('q'):
         break
+
+
+def getCameraStreaming():
+    capture = cv2.VideoCapture(0)
+    if not capture:
+        print("Failed to capture video streaming")
+        sys.exit()
+    print("Successed to capture video streaming")
+    return capture
+
+
+def main():
+    capture = getCameraStreaming()
+
+
+if __name__ == '__main__':
+    main()
 
 cap.release()
 cv2.destroyAllWindows()
