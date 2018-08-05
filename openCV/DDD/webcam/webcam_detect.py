@@ -46,16 +46,16 @@ def showScreenAndDetectFace(capture):
         ret, frame = capture.read()
         face_coordinates = du.getFaceCoordinates(frame)
         refreshScreen(frame, face_coordinates)
-
         if cv2.waitKey(20) & 0xFF == ord('q'):
             break
 
 
 def refreshScreen(frame, face_coordinates):
     if face_coordinates is not None:
+        cropped = du.crop_face(frame, face_coordinates)
+        cv2.imshow('crop', cropped)
         du.drawFace(frame, face_coordinates)
     cv2.imshow(windowName, frame)
-
 
 def main():
     print("Start main() function.")
@@ -68,5 +68,5 @@ def main():
 if __name__ == '__main__':
     main()
 
-#cap.release()
+# cap.release()
 cv2.destroyAllWindows()
