@@ -4,7 +4,9 @@ import numpy as np
 FACE_CASCADE_PATH = "haarcascade_frontalface_default.xml"
 EYE_CASCADE_PATH = "haarcascade_eye.xml"
 RED_COLOR = (0, 0, 255)
-#cropped_img = None
+
+
+# cropped_img = None
 
 # Face Detection using Haar Cascades
 # URL : https://docs.opencv.org/3.4/d7/d8b/tutorial_py_face_detection.html
@@ -42,3 +44,10 @@ def crop_face(frame, face_coordinates):
         cropped_img = frame[y - int(h / 4):y + h + int(h / 4), x - int(w / 4):x + w + int(w / 4)]
     cv2.imwrite('./0.png', cropped_img, params=[cv2.IMWRITE_PNG_COMPRESSION, 0])
     return cropped_img
+
+
+def preprocess(img, face_coordinates, face_shape=(48, 48)):
+    face = crop_face(img, face_coordinates)
+    face_resize = cv2.resize(face, face_shape)
+    face_gray = cv2.cvtColor(face_resize, cv2.COLOR_BGR2GRAY)
+    return face_gray
